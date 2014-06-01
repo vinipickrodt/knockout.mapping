@@ -718,6 +718,17 @@
 		var mappedRootObject;
 		var unwrappedRootObject = ko.utils.unwrapObservable(rootObject);
 
+		//If only a few fields is needed...
+		if(options.includeOnly){
+			newUnwrappedRootObject = {};
+			for(k in unwrappedRootObject){
+				if(options.includeOnly.indexOf(k) >= 0)
+					newUnwrappedRootObject[k] = unwrappedRootObject[k];
+			}
+			
+			unwrappedRootObject = newUnwrappedRootObject;
+		}
+
 		if (!canHaveProperties(unwrappedRootObject)) {
 			return callback(rootObject, options.parentName);
 		} else {
